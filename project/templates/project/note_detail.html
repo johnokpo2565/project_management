@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+       
+        
+
+        <div class="row px-3 py-2">
+
+           
+
+          
+            <div class="row">
+                <h5 class="display-5">{{note.name}}</h5>
+            </div>
+
+            {% if note.body %}
+            <div class="row">
+                {{note.body}}
+            </div>
+            {% endif %}
+
+
+            <div class="row mx-2 mt-2">
+
+                <div class="col">
+                    <a href="{% url 'project:edit_note' project.id note.id %}" class="btn btn-bg btn-primary">Edit Notes </a>
+                    <a href="{% url 'project:note_delete' project.id note.id  %}" class="btn btn-bg btn-danger">Delete Notes</a>
+                </div>
+    
+            </div>
+
+
+
+          </div>
+        </div>
+    
+   
+    </div>
+{% endblock %}

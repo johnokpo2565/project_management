@@ -1,0 +1,118 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+       
+        
+
+        <div class="row px-3 py-2">
+
+          
+            <div class="row">
+                <h5 class="display-5 text-center">{{project.name}}</h5>
+            </div>
+
+           
+
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'todolist:add' project.id %}" class="btn btn-bg btn-success">Add Todo</a>
+                    
+                    <a href="{% url 'project:edit' project.id %}" class="btn btn-bg btn-primary">Edit</a>
+                    <a href="{% url 'project:delete' project.id %}" class="btn btn-bg btn-danger">Delete</a>
+                </div>
+
+            </div>
+
+
+            {% if project.description %}
+            <div class="row mx-2 mt-4">
+                {{project.description}}
+            </div>
+            {% endif %}
+
+            <h3 class="mt-2"> Todo List </h3>
+
+            <div class="row mt-3 my-2">
+                <!-- Add to do list loop here -->
+                 {% for todolist in project.todolists.all %}
+                <div class="col-md-3">
+                    <div class="card border py-3">
+                        <div class="card-title mx-auto">{{ todolist.name }}</div>
+                        <div class="card-body">
+                            {{ todolist.description }}
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'todolist:todolist' project.id todolist.id %}">Open</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- End todo list loop here -->
+          </div>
+
+
+          <h3 class="my-2"> Files </h3>
+
+          <div class="row mx-2">
+            <a href="{% url 'project:upload_file' project.id %}" class="btn btn-bg btn-secondary w-25 my-3">Upload File</a>
+          </div>
+
+          <div class="row">
+            {% for projectfile in project.files.all %}
+            <div class="col-md-3">
+                <div class="card border py-3">
+                    <div class="card-title mx-auto">
+                        <h3>{{ projectfile.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="{{projectfile.attachment.url }}" target="_blank">Download file</a>
+                        |
+                        <a href="{% url 'project:delete' project.id projectfile.id %}" class="mt-1">Delete file</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <br>
+          <h3 class="my-2 mt-2"> Notes </h3>
+
+          <div class="row mx-2">
+
+            <div class="col">
+                <a href="{% url 'project:add_note' project.id %}" class="btn btn-bg btn-success">Add Notes</a>
+                <!-- <a href="{% url 'project:edit' project.id %}" class="btn btn-bg btn-primary">Edit Notes </a>
+                <a href="{% url 'project:delete' project.id %}" class="btn btn-bg btn-danger">Delete Notes</a> -->
+            </div>
+
+          </div>
+
+
+          <div class="row mt-3">
+            {% for note in project.notes.all %}
+            <div class="col-md-3">
+                <div class="card border py-3">
+                    <div class="card-title mx-auto">
+                        <h3>{{ note.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ note.body|truncatechars:50 }}
+                    </div>
+
+                    <div class="card-footer">
+                        <a href="{% url 'project:note_detail' project.id note.id %}">Open</a>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+
+
+
+        </div>
+    
+   
+    </div>
+{% endblock %}

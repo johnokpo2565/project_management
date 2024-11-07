@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="display-5 text-center">Projects</h5>
+        </div>
+
+        <div class="row ml-3 px-5 py-3 w-25 ">
+            <a href="{% url 'project:add' %}" class="btn btn-bg btn-info h-75 w-75 text-white"> Add Project</a>
+        </div>
+
+        <form action="." method="post">
+        <div class="row px-3 py-2">
+            {% for project in projects %}
+            <div class="col-md-3">
+                <div class="card border py-3">
+                    <div class="card-title mx-auto">{{ project.name }}</div>
+                    <div class="card-body">
+                        {{ project.description }}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'project:project' project.id %}">Open</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+    </div>
+{% endblock %}

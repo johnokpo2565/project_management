@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        
+        <div class="row">
+            <h5 class="display-6 text-center">Add Project</h5>
+        </div>
+
+        <div class="row border py-2 w-75 mx-auto">
+            <div class="row mx-auto w-50">
+                <form action="." method="post" >
+                    {% csrf_token %}
+                <input type="text" value="{{project.name}}" name="name" placeholder="Enter project name" class="form-control my-2">
+                <textarea name="description"  class="form-control my-2">{{project.description}}</textarea>
+                <!-- <input type="text" name="email" placeholder="Enter email" class="form-control my-2"> -->
+                <!-- <input type="password" name="password" placeholder="Enter password" class="form-control my-2"> -->
+                <input type="submit" value="edit proect" class="btn btn-sm btn-danger mt-3">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

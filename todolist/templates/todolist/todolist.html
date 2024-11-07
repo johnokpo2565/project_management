@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+       
+        
+
+        <div class="row px-3 py-2">
+
+          
+            <div class="row">
+                <h5 class="display-5 text-center">{{todolist.name}}</h5>
+            </div>
+
+            {% if todolist.description %}
+            <div class="row">
+                {{todolist.description}}
+            </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'task:add' project.id todolist.id %}" class="btn btn-bg btn-success">Add Task</a>
+                    <a href="{% url 'todolist:edit' project.id todolist.id %}" class="btn btn-bg btn-primary">Edit</a>
+                    <a href="{% url 'todolist:delete' project.id todolist.id %}" class="btn btn-bg btn-danger">Delete</a>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+                <!-- Add to do list loop here -->
+                 {% for task in todolist.tasks.all %}
+                <div class="col-md-3">
+                    <div class="card border py-3">
+                        <div class="card-title mx-auto">{{ task.name }}</div>
+                        <div class="card-body">
+                            {{ task.description }}
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'task:detail' todolist.project.id todolist.id task.id %}">Open</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- End todo list loop here -->
+          </div>
+        </div>
+    
+   
+    </div>
+{% endblock %}
